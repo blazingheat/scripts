@@ -1,0 +1,21 @@
+1.  run install_java8.sh
+2.  run install_cassandra.sh
+3.  Add host entry for local server alias
+4.  Edit /etc/cassandra/cassandra.yaml
+a) Change "cluster_name" to SMS CLUSTER
+b) updade "SEEDS" to have the local server alias
+c) update list_address to local server alias
+d) update broadcast address to local server alias
+d) update rpc_address to be 0.0.0.0
+e) set endpoint_snitch: GossipingPropertyFileSnitch
+f) set broadcast_rpc_address: cassandradb
+
+Troubleshoot:
+
+If you still have issues, check /var/log/cassandra/debug.log for errors
+
+The most common is if you start the cassandra server prior to the configuration being set up, you'll have to delete the /var/lib/cassandra directory.
+
+Then after this, you'll have to recreate this directory with "sudo mkdir /var/lib/cassandra"
+
+After re-creating, you'll have to do "sudo chmod a+rwx /var/lib/cassandra" (or basically just only give it to the user "cassandra")
